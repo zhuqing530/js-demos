@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在试卷题目中需要用到的js demo</title>
+    <style>
+        #mark {
+            border: 1px solid red;
+            display: inline-block;
+            padding: 10px;
+        }
+
+        #before-content {
+            border: 1px solid red;
+            display: inline-block;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        function clickMe(a) {
+            alert(a);
+        }
+
+        function getDivContent(id) {
+            let content = document.getElementById(id).innerHTML;
+            alert('内容为：' + content);
+        }
+
+        function modifyContent(id) {
+            document.getElementById(id).innerHTML = '更改之后的内容是这样的';
+        }
+
+        function getInputValue(formId, inputName) {
+            let value = document.getElementById(formId)[inputName].value;
+            alert("Value: " + value);
+        }
+
+        function checkInputValueEmpty(formId, inputName) {
+            let value = document.getElementById(formId)[inputName].value;
+            let trimmedValue = value.trim();
+            if (trimmedValue.length > 0) {
+                alert("你输入的不是空");
+            } else {
+                alert("你输入的是空");
+            }
+        }
+
+        function compareAnswer(formId, inputName) {
+            let userAnswer = document.getElementById(formId)[inputName].value.trim();
+            console.log("userAnswer:" + userAnswer);
+            let predefinedAnswer = document.getElementById("predefined-answer").innerHTML;
+            console.log("predefinedAnswer:" + predefinedAnswer);
+            if (userAnswer === predefinedAnswer) {
+                alert("正确");
+            } else {
+                alert("错误");
+            }
+        }
+
+        function calculateSum(formId, number1Name, number2Name, resultName) {
+            let number1 = document.getElementById(formId)[number1Name].value;
+            console.log('number1:' + number1);
+            let number2 = document.getElementById(formId)[number2Name].value;
+            console.log('number2:' + number2);
+            let result = Number(number1) + Number(number2);
+            console.log('result:' + result);
+            document.getElementById(formId)[resultName].value = result;
+        }
+    </script>
+</head>
+<body>
+<div>
+    <h2>提醒弹窗</h2>
+    <button onclick="clickMe('必填项，不能为空！')">点我</button>
+</div>
+<hr>
+<div>
+    <h2>获取"得分"块</h2>
+    <div id="mark">得分:99</div>
+    <button onclick="getDivContent('mark')">获取</button>
+</div>
+<hr>
+<div>
+    <h2>修改内容</h2>
+    <div id="before-content">
+        之前内容
+    </div>
+    <button onclick="modifyContent('before-content')">修改</button>
+    <hr>
+</div>
+<hr>
+<div>
+    <h2>获取控件内容</h2>
+    <form id="form1">
+        <input type="text" name="username">
+    </form>
+    <button onclick="getInputValue('form1','username')">获取控件值</button>
+    <hr>
+</div>
+<hr>
+<div>
+    <h2>判断是否为空</h2>
+    <form id="form2">
+        <input type="text" name="username">
+    </form>
+    <button onclick="checkInputValueEmpty('form2','username')">判断输入是否为空</button>
+</div>
+<hr>
+
+<div>
+    <h2>与正确答案对比</h2>
+    <div id="predefined-answer">3.14159</div>
+    <form id="form3">
+        <input type="text" name="my-answer">
+    </form>
+    <button onclick="compareAnswer('form3','my-answer')">对比</button>
+</div>
+<hr>
+<div>
+    <h2>数值计算</h2>
+    <form id="form4">
+        <input type="text" name="number1">+
+        <input type="text" name="number2">
+        <input type="button" onclick="calculateSum('form4','number1','number2','result')" value="=">
+        <input type="text" name="result">
+    </form>
+</div>
+</body>
+</html>
